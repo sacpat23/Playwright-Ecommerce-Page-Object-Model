@@ -1,48 +1,36 @@
 # Playwright E-commerce Automation
 
-A clean and maintainable Playwright automation project built with the Page Object Model (POM) for an e-commerce web application. This repository demonstrates good test automation practices, reusable authentication, scalable UI flow testing, and CI-ready execution.
+A structured Playwright automation project built using the Page Object Model (POM) for an e-commerce application. The framework is designed to demonstrate clean test architecture, reusable login state, browser configuration management, and maintainable automation practices suitable for a professional QA or SDET role.
 
 ## Overview
 
-This project automates a typical e-commerce purchase flow:
+This project automates the core e-commerce flow:
 
-- login into the application
-- browse and select products
-- add items to the cart
-- proceed to checkout
-- place an order
-- verify the order in the My Orders section
+- user login
+- product discovery
+- add to cart
+- checkout
+- order placement
+- order verification in the My Orders page
 
-The test coverage is split between UI actions and page-specific logic so the tests remain readable, scalable, and easier to maintain.
-
-## Features
-
-- Page Object Model architecture
-- Reusable login session with Playwright storage state
-- Separate page classes for each major screen
-- Environment-based credentials using `.env`
-- Headless browser configuration for CI compatibility
-- HTML reporting for execution results
-- Ready for local execution and GitHub Actions runs
+The suite is organized to keep browsing logic, selectors, and reusable browser setup separate from the actual test scenarios.
 
 ## Tech Stack
 
 - Playwright
-- JavaScript / TypeScript
+- JavaScript
+- TypeScript page objects
 - Node.js
-- dotenv
-- HTML report generation
+- dotenv for environment handling
+- HTML reporting
 
 ## Project Structure
 
 ```bash
 Playwright_Ecommerce_Automation/
-├── .auth/                     # Local auth/session state (ignored by Git)
-├── .github/
-│   └── workflows/
-│       └── playwright.yml     # GitHub Actions workflow for CI execution
+├── .auth/                     # Local saved auth/session state (ignored by git)
 ├── fixtures/
-│   └── ecomFixtures.ts       # Shared Playwright fixtures
+│   └── ecomFixtures.ts       # Shared Playwright fixtures for reusable setup
 ├── page-objects/
 │   ├── LoginPage.ts
 │   ├── DashboardPage.ts
@@ -54,107 +42,113 @@ Playwright_Ecommerce_Automation/
 ├── tests/
 │   ├── smoke.spec.ts
 │   └── ecommerce-order-flow.spec.ts
-├── .env.example               # Environment variable template
+├── .env.example              # Sample environment variables
 ├── .gitignore
-├── Dockerfile                 # Containerized Playwright execution setup
-├── global-setup.ts            # Reusable login and storage state setup
+├── global-setup.ts           # Login flow and storage-state generation
 ├── package.json
-├── playwright.config.js       # Active Playwright configuration
+├── playwright.config.js       # Main Playwright configuration
 ├── README.md
 ├── tsconfig.json
-├── Utills/
-│   └── placeorderTestData.json
-└── node_modules/              # Installed dependencies (ignored by Git)
+└── Utills/
 ```
 
-## Design Principles
+## Key Design Principles
 
-### 1. Page Object Model
+### 1. Page Object Model (POM)
 
-Each page object contains the locators and actions related to that screen. This keeps selectors centralized and prevents duplication across tests.
+Each page or functional area has its own class with:
 
-### 2. Shared Authentication
+- locators
+- page actions
+- validation methods
 
-The project logs in once using a global setup and saves the browser state. This allows tests to reuse an authenticated session instead of logging in repeatedly.
+This keeps selectors centralized and avoids duplication across tests.
 
-### 3. Single Source of Truth for Config
+### 2. Reusable Authentication
 
-A single Playwright config file is used to avoid confusion, duplication, and inconsistent runs across environments.
+The test suite uses Playwright storage state to log in once and reuse a valid session across test runs. This reduces redundant login steps and improves reliability.
 
-### 4. Maintainable Test Logic
+### 3. Single Configuration File
 
-Test files focus on business flow and assertions, while page objects handle UI interactions. This keeps the suite organized and easier to extend.
+The project keeps one active Playwright configuration file instead of multiple duplicate configs. This avoids confusion and inconsistent execution behavior.
 
-## Setup
+### 4. Maintainable Test Cases
 
-1. Install dependencies:
+Tests focus on business flow and assertions, while page object classes handle the UI interaction details. This makes the suite easier to extend and maintain as the app evolves.
 
-```bash
-npm install
-```
+## Login and Session Management
 
-2. Create your local environment file:
+The project uses a global setup flow to:
+
+- open the login page
+- log in with environment credentials
+- wait for successful authentication
+- save browser storage state to `.auth/user.json`
+
+This ensures tests start from an authenticated browser state without repeating login logic for every test.
+
+## Environment Setup
+
+Create a local environment file based on the sample:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Add your credentials:
+Then update the values:
 
 ```env
 ECOM_USERNAME=your_email@example.com
 ECOM_PASSWORD=your_password
 ```
 
-## Running Tests
+## Run Tests
 
-Run the full suite:
+Run the complete suite:
 
 ```bash
 npx playwright test
 ```
 
-Run smoke tests only:
+Run only smoke tests:
 
 ```bash
 npx playwright test --grep @smoke
 ```
 
-Run regression tests only:
+Run only regression tests:
 
 ```bash
 npx playwright test --grep @regression
 ```
 
-## CI and GitHub Actions
+## Example Test Coverage
 
-This project is configured to run in GitHub Actions in a headless browser environment, which is necessary for Linux runners without a display server. The Playwright config is set to run headless so the tests can execute reliably in CI.
-
-## Example Coverage
-
-The suite covers:
+The project covers:
 
 - login flow
-- product selection
+- product search and selection
 - cart validation
-- checkout process
-- payment/order submission
-- verification of the order in My Orders
+- checkout flow
+- order success confirmation
+- order lookup by order ID
 
-## Why This Project Is Useful
+## Why This Project is Interview-Friendly
 
-This repository is a practical example of how a real-world Playwright automation project can be structured for:
+This project demonstrates practical automation best practices, including:
 
-- readability
-- maintainability
-- test reuse
-- CI execution
-- interview and portfolio readiness
+- modular test architecture
+- POM implementation
+- CI-friendly configuration
+- environment variable usage
+- reusable authentication flow
+- cleaner separation of concerns
+- maintainable automation structure
 
 ## Git Hygiene
 
-Sensitive files such as local credentials, browser storage, and OS metadata are ignored by Git to keep the repository clean and secure.
+Sensitive files such as local credentials and browser session data are kept out of source control using `.gitignore`.
 
 ## Summary
 
-This project is designed to showcase professional automation practices using Playwright, page object modeling, reusable session management, and CI-friendly execution. It is suitable for learning, portfolio presentation, and real-world test automation workflows.
+This framework is built not just to automate tests, but to illustrate how a real-world Playwright project is structured for maintainability, scalability, and professionalism in interviews and automation roles.
