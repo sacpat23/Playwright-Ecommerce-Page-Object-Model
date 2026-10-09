@@ -23,8 +23,8 @@ export class LoginPage{
     }
 
     async gotTo() { 
-        await this.page.goto("https://rahulshettyacademy.com/client/#/auth/login");
-
+        await this.page.goto("https://rahulshettyacademy.com/client/#/auth/login", { waitUntil: 'domcontentloaded', timeout: 60000 });
+        await this.useName.waitFor({ state: 'visible', timeout: 60000 });
     }
 
 }

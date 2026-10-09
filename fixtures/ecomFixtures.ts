@@ -18,9 +18,8 @@ type EcomFixtures = {
 
 export const test = base.extend<EcomFixtures>({
   authenticatedPage: async ({ page }, use) => {
-    await page.goto('https://rahulshettyacademy.com/client/#/dashboard');
-    await page.waitForLoadState('networkidle');
-    await page.locator('.card-body').first().waitFor({ state: 'visible' });
+    await page.goto('https://rahulshettyacademy.com/client/#/dashboard', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.locator('.card-body').first().waitFor({ state: 'visible', timeout: 60000 });
     await use(page);
   },
 

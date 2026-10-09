@@ -4,9 +4,9 @@ require("dotenv").config();
 module.exports = defineConfig({
   globalSetup: require.resolve("./global-setup"),
   testDir: "./tests",
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
-    timeout: 20 * 1000,
+    timeout: 30 * 1000,
   },
 
   reporter: "html",

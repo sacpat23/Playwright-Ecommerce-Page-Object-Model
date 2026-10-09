@@ -19,13 +19,14 @@ async function globalSetup() {
   const context = await browser.newContext();
   const page = await context.newPage();
 
-  await page.goto('https://rahulshettyacademy.com/client/#/auth/login');
+  await page.goto('https://rahulshettyacademy.com/client/#/auth/login', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.locator('#userEmail').waitFor({ state: 'visible', timeout: 60000 });
   await page.locator('#userEmail').fill(username);
   await page.locator('#userPassword').fill(password);
   await page.locator('#login').click();
 
-  await page.waitForLoadState('networkidle');
-  await page.locator('.card-body').first().waitFor();
+  await page.waitForLoadState('networkidle', { timeout: 60000 });
+  await page.locator('.card-body').first().waitFor({ state: 'visible', timeout: 60000 });
 
   await context.storageState({ path: authFile });
   await browser.close();
