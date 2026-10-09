@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    "**/pageobjects": true,
+    "**/tests-examples": true
+  },
+  "workbench.preferredLightColorTheme": "Monokai Dimmed",
+  "debug.console.fontFamily": "Agave font",
+  "chat.editor.fontFamily": "Agave font",
+  "editor.fontFamily": "Monaco, JetBrains Mono, Fira Code, Cascadia Code, MonoLisa, Agave font, Menlo, 'Courier New', monospace",
+  "editor.fontSize": 12,
+  "dotnet.highlighting.highlightRelatedJsonComponents": false,
+  "editor.semanticHighlighting.enabled": false,
+  "workbench.colorTheme": "Light+",
+  "workbench.preferredDarkColorTheme": "Light+",
+  "workbench.colorCustomizations": {
+    "[Ayu Dark Bordered]": {}
+  },
+  "workbench.preferredHighContrastColorTheme": "Monokai",
+  "workbench.preferredHighContrastLightColorTheme": "Winter is Coming (Dark Blue - No Italics)",
+  "workbench.iconTheme": "vs-minimal",
+  "dart.devToolsTheme": "light"
+}

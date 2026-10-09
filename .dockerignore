@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+playwright-report
+results
+test-results
+.git
+.github
+.env
+.DS_Store
+coverage
