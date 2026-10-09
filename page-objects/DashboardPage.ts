@@ -36,6 +36,10 @@ export class DashboardPage {
  
 
   async navigateToCart() {
-    await this.cart.click();
+    await this.cart.waitFor({ state: 'visible', timeout: 60000 });
+    await this.cart.evaluate((element) => {
+      element.scrollIntoView({ behavior: 'instant', block: 'center' });
+      element.click();
+    });
   }
 }

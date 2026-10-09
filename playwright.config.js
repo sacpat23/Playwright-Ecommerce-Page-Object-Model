@@ -10,6 +10,7 @@ module.exports = defineConfig({
   },
 
   reporter: "html",
+  workers: 1,
 
   use: {
     browserName: "chromium",

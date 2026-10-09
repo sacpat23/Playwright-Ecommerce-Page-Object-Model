@@ -22,8 +22,13 @@ export class OrderPage {
 
     async orderVerify() {
        await this.wait.waitFor();
-        await this.selectCountry.click();
-        await this.typeCountry.pressSequentially("ind", { delay: 150 });
+       const spinner = this.page.locator('.ngx-spinner-overlay');
+       if (await spinner.count()) {
+         await spinner.first().waitFor({ state: 'hidden', timeout: 60000 }).catch(() => {});
+       }
+       await this.selectCountry.waitFor({ state: 'visible', timeout: 60000 });
+       await this.selectCountry.click({ force: true });
+       await this.typeCountry.pressSequentially("ind", { delay: 150 });
 
        // const dropdown =this.page.locator(".ta-results");
         await this.dd.waitFor();
@@ -31,13 +36,14 @@ export class OrderPage {
        // const optionsCount = await this.dropdown.locator("button").count();
         const optionsCount = await this.dropDownCount.count();
         for (let i = 0; i < optionsCount; ++i) {
-        const text = await this.dd
-          .locator("button")
-          .nth(i)
-          .textContent();
+        const option = this.dd.locator("button").nth(i);
+        const text = await option.textContent();
         console.log(text);
         if (text === " India") {
-        await this.dd.locator("button").nth(i).click();
+        await option.evaluate((element) => {
+          element.scrollIntoView({ behavior: 'instant', block: 'center' });
+          element.click();
+        });
         break;
         }
         }
@@ -45,7 +51,12 @@ export class OrderPage {
     
    async  navigateToThankyouPage() {
 
-           await this.submitButton.click();
+           const spinner = this.page.locator('.ngx-spinner-overlay');
+           if (await spinner.count()) {
+             await spinner.first().waitFor({ state: 'hidden', timeout: 60000 }).catch(() => {});
+           }
+           await this.submitButton.waitFor({ state: 'visible', timeout: 60000 });
+           await this.submitButton.click({ force: true });
         }
 }
 

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.55.0-jammy
+FROM mcr.microsoft.com/playwright:v1.61.1-jammy
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ RUN npm ci
 
 COPY . .
 
-RUN npx playwright install --with-deps chromium
+RUN npx playwright install --with-deps
 
 ENV CI=true
 CMD ["npx", "playwright", "test"]

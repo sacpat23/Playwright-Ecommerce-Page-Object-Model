@@ -10,7 +10,7 @@ export class CheckoutPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.checkout = page.getByRole("button", { name: "Checkout" });
+        this.checkout = page.locator("button:has-text('Checkout')").first();
     }
     
    /* async verifyCart() {
@@ -28,13 +28,17 @@ export class CheckoutPage {
 
     async navigateToOrder() {
 
-    await this.checkout.click();
+    await this.checkout.waitFor({ state: 'visible', timeout: 60000 });
+    await this.checkout.evaluate((element) => {
+        element.scrollIntoView({ behavior: 'instant', block: 'center' });
+        element.click();
+    });
    // console.log(page.title());
 
     }
     getProductLocator(productName: string) { 
 
-        return this.page.locator("h3").filter({ hasText: productName });
+        return this.page.getByText(productName, { exact: true }).first();
     }
 
 }
