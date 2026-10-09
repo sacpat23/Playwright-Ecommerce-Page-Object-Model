@@ -32,15 +32,6 @@ module.exports = defineConfig({
       },
     },
     {
-      name: "safari",
-      use: {
-        ...devices["Desktop Safari"],
-        browserName: "webkit",
-        headless: true,
-        storageState: "./.auth/user.json",
-      },
-    },
-    {
       name: "mobile-chrome",
       use: {
         ...devices["iPhone 17 Pro Max"],
