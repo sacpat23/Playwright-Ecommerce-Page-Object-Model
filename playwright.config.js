@@ -13,7 +13,7 @@ module.exports = defineConfig({
 
   use: {
     browserName: "chromium",
-    headless: false,
+    headless: true,
     screenshot: "only-on-failure",
     trace: "retain-on-failure",
     video: "retain-on-failure",
@@ -26,6 +26,7 @@ module.exports = defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         browserName: "chromium",
+        headless: true,
         storageState: "./.auth/user.json",
       },
     },
@@ -34,6 +35,7 @@ module.exports = defineConfig({
       use: {
         ...devices["Desktop Safari"],
         browserName: "webkit",
+        headless: true,
         storageState: "./.auth/user.json",
       },
     },
@@ -42,6 +44,7 @@ module.exports = defineConfig({
       use: {
         ...devices["iPhone 17 Pro Max"],
         browserName: "chromium",
+        headless: true,
         storageState: "./.auth/user.json",
       },
     },
